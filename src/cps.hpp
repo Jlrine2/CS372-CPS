@@ -12,22 +12,23 @@ class Shape {
     Shape();
     virtual std::iostream draw()=0;  
 };
-class Polygon: Shape{
+class Polygon: public Shape{
 
 };
-class Square: Shape{
+class Square: public Shape{
 
 };
-class Rectangle: Shape{
+class Rectangle: public Shape{
 
 };
-class Triangle: Shape{
+class Triangle: public Shape{
 
 };
-class Circle: Shape{
+class Circle: public Shape{
 
 };
-class Spacer: Shape{
+class Spacer: public Shape{
 
 };
+
 #endif //CS372_CPS_CPS_HPP
