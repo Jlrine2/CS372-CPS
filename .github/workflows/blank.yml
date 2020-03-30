@@ -24,7 +24,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: build test-suite
-      run: g++ -I ../src $GITHUB_WORKSPACE/tests/cps_test_main.cpp $GITHUB_WORKSPACE/tests/cps_test_cases.cpp
+      run: g++ -iquote $GITHUB_WORKSPACE/src $GITHUB_WORKSPACE/tests/cps_test_main.cpp $GITHUB_WORKSPACE/tests/cps_test_cases.cpp
       
     - name: run tests
       run: ./a.out
