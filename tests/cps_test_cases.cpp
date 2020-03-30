@@ -19,3 +19,17 @@ TEST_CASE("Circle dimention calculations") {
     REQUIRE(c2base -> get_width() == 4.0);
 
 }
+
+TEST_CASE("Polygon dimention calculations") {
+    Polygon p1(1.0, 3);
+    Shape* p1base = &p1;
+
+    REQUIRE(p1base -> get_width() == 1.0);
+    REQUIRE(p1base -> get_height() == sqrt(0.75));
+
+
+    Polygon p2(1.0, 5);
+    Shape* p2base = &p2;
+    REQUIRE(p2base -> get_width() == 1.0);
+    REQUIRE(p2base -> get_height() == sqrt(0.75));
+}

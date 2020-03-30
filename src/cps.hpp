@@ -11,8 +11,14 @@ public:
     virtual double get_width()=0;
 };
 class Polygon: public Shape{
+public:
+    Polygon(double sLen, std::size_t sides): sideLength(sLen), sides(sides){}
+    double get_width() override;
+    double get_height() override;
 
-
+private:
+    double sideLength;
+    int sides;
 };
 class Square: public Shape{
 
@@ -26,6 +32,7 @@ class Triangle: public Shape{
 class Circle: public Shape{
 public:
     Circle(double r): radius(r){}
+    ~Circle() {}
     double get_width() override;
     double get_height() override;
 private:
