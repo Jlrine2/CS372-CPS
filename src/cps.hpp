@@ -27,6 +27,7 @@ class Triangle: public Shape{
 class Circle: public Shape{
 public:
     Circle(double r): radius(r){}
+    ~Circle() {}
     double get_width() override;
     double get_height() override;
 private:
