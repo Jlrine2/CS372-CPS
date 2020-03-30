@@ -4,11 +4,9 @@
 
 #ifndef CS372_CPS_CPS_HPP
 #define CS372_CPS_CPS_HPP
-#include <iostream>
 
 class Shape {
 public:
-    virtual ~Shape()=0;
     virtual double get_height()=0;
     virtual double get_width()=0;
 };
@@ -28,7 +26,6 @@ class Triangle: public Shape{
 class Circle: public Shape{
 public:
     Circle(double r): radius(r){}
-    ~Circle() {}
     double get_width() override;
     double get_height() override;
 private:
