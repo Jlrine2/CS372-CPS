@@ -8,6 +8,8 @@
 
 class Shape {
 public:
+    virtual Shape()=0;
+    virtual ~Shape()=0;
     virtual double get_height()=0;
     virtual double get_width()=0;
 };
