@@ -12,7 +12,7 @@ public:
 };
 class Polygon: public Shape{
 public:
-    Polygon(double sLen, std::size_t sides): sideLength(sLen), sides(sides){}
+    Polygon(double sLen, unsigned int sides): sideLength(sLen), sides(sides){}
     double get_width() override;
     double get_height() override;
 

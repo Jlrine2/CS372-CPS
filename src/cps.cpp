@@ -3,6 +3,7 @@
 //
 
 #include "cps.hpp"
+#include <cmath>
 
 double Circle::get_height() {
     return 2.0 * radius;
@@ -24,13 +25,14 @@ double Circle::get_width() {
  * Where n is the number of sides and l is the length of each side
  */
 double Polygon::get_width() {
+    double pi = 3.14159265358979323846;
     if (sides % 4 == 0) {
-
+        return (sideLength * std::cos(pi/sides)) / (std::sin(pi/sides));
     }
     if (sides % 2 == 0) {
-
+        return sideLength/std::sin(pi/sides);
     }
-
+    return sideLength*std::sin(pi*(sides-1)/(2*sides)) / (std::sin(pi/sides));
 }
 
 /*
@@ -42,5 +44,9 @@ double Polygon::get_width() {
  * Where n is the number of sides and l is the length of each side
  */
 double Polygon::get_height() {
-    return sideLength;
+    double pi = 3.14159265358979323846;
+    if (sides % 2 == 0) {
+        return (sideLength*std::cos(pi/sides)) / (std::sin(pi/sides));
+    }
+    return sideLength*(1+std::cos(pi/sides)) / (2*std::sin(pi/sides));
 }
