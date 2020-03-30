@@ -5,36 +5,38 @@
 #include "cps.hpp"
 #include <cmath>
 
-TEST_CASE("Circle dimention calculations") {
-    Circle c1(1.0);
-    Shape* c1base = &c1;
+TEST_CASE("Circle dimension calculations") {
+    std::shared_ptr<Shape> c1= std::make_shared<Circle>(1.0);
 
-    REQUIRE(c1base -> get_height() == 2.0);
-    REQUIRE(c1base -> get_width() == 2.0);
+    REQUIRE(c1 -> get_height() == 2.0);
+    REQUIRE(c1 -> get_width() == 2.0);
 
-    Circle c2(2.0);
-    Shape* c2base = &c2;
+    std::shared_ptr<Shape> c2= std::make_shared<Circle>(2.0);
 
-    REQUIRE(c2base -> get_height() == 4.0);
-    REQUIRE(c2base -> get_width() == 4.0);
+
+    REQUIRE(c2 -> get_height() == 4.0);
+    REQUIRE(c2 -> get_width() == 4.0);
 
 }
 
-TEST_CASE("Polygon dimention calculations") {
-    Polygon p1(1.0, 3);
-    Shape* p1base = &p1;
-
-    REQUIRE(p1base -> get_width() == Approx(1.0));
-    REQUIRE(p1base -> get_height() == Approx(std::sqrt(0.75)));
+TEST_CASE("Polygon dimension calculations") {
+    std::shared_ptr<Shape> p1 = std::make_shared<Polygon>(1.0, 3);
 
 
-    Polygon p2(1.0, 6);
-    Shape* p2base = &p2;
-    REQUIRE(p2base -> get_width() == Approx(2.0));
-    REQUIRE(p2base -> get_height() == Approx(sqrt(0.75)*2));
+    REQUIRE(p1 -> get_width() == Approx(1.0));
+    REQUIRE(p1 -> get_height() == Approx(std::sqrt(0.75)));
 
-    Polygon p3(1.0, 8);
-    Shape* p3base = &p3;
-    REQUIRE(p3base -> get_width() == Approx(2.4142135624));
-    REQUIRE(p3base -> get_height() == Approx(2.4142135624));
+
+    std::shared_ptr<Shape> p2 = std::make_shared<Polygon>(1.0, 6);
+
+    REQUIRE(p2 -> get_width() == Approx(2.0));
+    REQUIRE(p2 -> get_height() == Approx(sqrt(0.75)*2));
+
+    std::shared_ptr<Shape> p3 = std::make_shared<Polygon>(1.0, 8);
+    REQUIRE(p3 -> get_width() == Approx(2.4142135624));
+    REQUIRE(p3 -> get_height() == Approx(2.4142135624));
+}
+
+TEST_CASE("Square dimension calculations") {
+    std::shared_ptr<Shape> s1 = std::make_shared<Square>(1.0);
 }

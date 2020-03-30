@@ -21,7 +21,12 @@ private:
     int sides;
 };
 class Square: public Shape{
-
+public:
+    Square(double l): sideLength(l){}
+    double get_width() override;
+    double get_height() override;
+private:
+    double sideLength;
 };
 class Rectangle: public Shape{
 

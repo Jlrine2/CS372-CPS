@@ -50,3 +50,11 @@ double Polygon::get_height() {
     }
     return sideLength*(1+std::cos(pi/sides)) / (2*std::sin(pi/sides));
 }
+
+double Square::get_width() {
+    return 0;
+}
+
+double Square::get_height() {
+    return 0;
+}
