@@ -52,9 +52,9 @@ double Polygon::get_height() {
 }
 
 double Square::get_width() {
-    return 0;
+    return sideLength;
 }
 
 double Square::get_height() {
-    return 0;
+    return sideLength;
 }

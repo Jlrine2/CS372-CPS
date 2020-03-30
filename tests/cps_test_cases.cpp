@@ -8,14 +8,14 @@
 TEST_CASE("Circle dimension calculations") {
     std::shared_ptr<Shape> c1= std::make_shared<Circle>(1.0);
 
-    REQUIRE(c1 -> get_height() == 2.0);
-    REQUIRE(c1 -> get_width() == 2.0);
+    REQUIRE(c1 -> get_height() == Approx(2.0));
+    REQUIRE(c1 -> get_width() == Approx(2.0));
 
     std::shared_ptr<Shape> c2= std::make_shared<Circle>(2.0);
 
 
-    REQUIRE(c2 -> get_height() == 4.0);
-    REQUIRE(c2 -> get_width() == 4.0);
+    REQUIRE(c2 -> get_height() == Approx(4.0));
+    REQUIRE(c2 -> get_width() == Approx(4.0));
 
 }
 
@@ -39,4 +39,12 @@ TEST_CASE("Polygon dimension calculations") {
 
 TEST_CASE("Square dimension calculations") {
     std::shared_ptr<Shape> s1 = std::make_shared<Square>(1.0);
+
+    REQUIRE(s1 -> get_width() == Approx(1.0));
+    REQUIRE(s1 -> get_height() == Approx(1.0));
+
+    std::shared_ptr<Shape> s2 = std::make_shared<Square>(2.0);
+
+    REQUIRE(s2 -> get_width() == Approx(2.0));
+    REQUIRE(s2 -> get_height() == Approx(2.0));
 }
