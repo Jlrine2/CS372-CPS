@@ -4,15 +4,14 @@
 
 #ifndef CS372_CPS_CPS_HPP
 #define CS372_CPS_CPS_HPP
-#include <iostream>
 
 class Shape {
-    public:
-    ~Shape();
-    Shape();
-    virtual std::iostream draw()=0;  
+public:
+    virtual double get_height()=0;
+    virtual double get_width()=0;
 };
 class Polygon: public Shape{
+
 
 };
 class Square: public Shape{
@@ -25,6 +24,12 @@ class Triangle: public Shape{
 
 };
 class Circle: public Shape{
+public:
+    Circle(double r): radius(r){}
+    double get_width() override;
+    double get_height() override;
+private:
+    double radius;
 
 };
 class Spacer: public Shape{
