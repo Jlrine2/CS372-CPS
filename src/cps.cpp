@@ -58,3 +58,19 @@ double Square::get_width() {
 double Square::get_height() {
     return sideLength;
 }
+
+double Triangle::get_height() {
+    return sqrt(std::pow(sideLength,2)-std::pow(sideLength/2,2));
+}
+
+double Triangle::get_width() {
+    return sideLength;
+}
+
+double Rectangle::get_width() {
+    return width;
+}
+
+double Rectangle::get_height() {
+    return height;
+}
