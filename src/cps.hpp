@@ -78,7 +78,16 @@ private:
 };
 
 class Spacer : public Shape {
+public:
+    Spacer(double w, double h) : width(w), height(h) {}
 
+    double get_width() override;
+
+    double get_height() override;
+
+private:
+    double height;
+    double width;
 };
 
 #endif //CS372_CPS_CPS_HPP

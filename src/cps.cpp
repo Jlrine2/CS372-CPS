@@ -27,12 +27,12 @@ double Circle::get_width() {
 double Polygon::get_width() {
     double pi = 3.14159265358979323846;
     if (sides % 4 == 0) {
-        return (sideLength * std::cos(pi/sides)) / (std::sin(pi/sides));
+        return (sideLength * std::cos(pi / sides)) / (std::sin(pi / sides));
     }
     if (sides % 2 == 0) {
-        return sideLength/std::sin(pi/sides);
+        return sideLength / std::sin(pi / sides);
     }
-    return sideLength*std::sin(pi*(sides-1)/(2*sides)) / (std::sin(pi/sides));
+    return sideLength * std::sin(pi * (sides - 1) / (2 * sides)) / (std::sin(pi / sides));
 }
 
 /*
@@ -46,9 +46,9 @@ double Polygon::get_width() {
 double Polygon::get_height() {
     double pi = 3.14159265358979323846;
     if (sides % 2 == 0) {
-        return (sideLength*std::cos(pi/sides)) / (std::sin(pi/sides));
+        return (sideLength * std::cos(pi / sides)) / (std::sin(pi / sides));
     }
-    return sideLength*(1+std::cos(pi/sides)) / (2*std::sin(pi/sides));
+    return sideLength * (1 + std::cos(pi / sides)) / (2 * std::sin(pi / sides));
 }
 
 double Square::get_width() {
@@ -60,7 +60,7 @@ double Square::get_height() {
 }
 
 double Triangle::get_height() {
-    return sqrt(std::pow(sideLength,2)-std::pow(sideLength/2,2));
+    return sqrt(std::pow(sideLength, 2) - std::pow(sideLength / 2, 2));
 }
 
 double Triangle::get_width() {
@@ -72,5 +72,13 @@ double Rectangle::get_width() {
 }
 
 double Rectangle::get_height() {
+    return height;
+}
+
+double Spacer::get_width() {
+    return width;
+}
+
+double Spacer::get_height() {
     return height;
 }
