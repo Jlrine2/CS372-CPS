@@ -90,4 +90,26 @@ private:
     double width;
 };
 
+class RotationAngle {
+public:
+    explicit RotationAngle(int a);
+    int get_angle();
+private:
+    int angle;
+};
+
+
+
+class Rotated : public Shape {
+public:
+    Rotated(Shape s, RotationAngle angle);
+
+    double get_width() override;
+
+    double get_height() override;
+private:
+    Shape* shape;
+    RotationAngle angle;
+};
+
 #endif //CS372_CPS_CPS_HPP

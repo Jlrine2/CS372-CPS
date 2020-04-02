@@ -84,3 +84,25 @@ TEST_CASE("Spacer dimension calculations") {
     REQUIRE(s2->get_width() == Approx(2.0));
     REQUIRE(s2->get_height() == Approx(2.0));
 }
+
+TEST_CASE("Rotated shape dimension calucations") {
+    SECTION("test rotation anles between 0 and 360") {
+        RotationAngle a(50);
+        REQUIRE(a.get_angle() == 50);
+
+        RotationAngle b(720);
+        REQUIRE(b.get_angle() == 0);
+
+        RotationAngle c(725);
+        REQUIRE(c.get_angle() == 5);
+
+        RotationAngle d(-5);
+        REQUIRE(d.get_angle() == 355);
+
+        RotationAngle e(-740);
+        REQUIRE(e.get_angle() == 340);
+    }
+
+    std::shared_ptr<Shape> r1 = std::make_shared<Rotated>(Square(1), RotationAngle(0));
+
+}

@@ -82,3 +82,15 @@ double Spacer::get_width() {
 double Spacer::get_height() {
     return height;
 }
+
+Rotated::Rotated(Shape s, int angle)  {
+
+}
+
+double Rotated::get_width() {
+    return 0;
+}
+
+double Rotated::get_height() {
+    return 0;
+}
