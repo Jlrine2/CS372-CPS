@@ -5,6 +5,17 @@
 #include "cps.hpp"
 #include <cmath>
 
+// --- Shape to PostScript File ---
+
+void shapeToPostScriptFile(const string & postScript, const string & filename) {
+    ofstream postScriptFile;
+    postScript.open(filename);
+    postScriptFile << postScript << " showpage";
+    postScriptFile.close();
+}
+
+// --- Circle ---
+
 double Circle::get_height() {
     return 2.0 * radius;
 }
@@ -72,5 +83,13 @@ double Rectangle::get_width() {
 }
 
 double Rectangle::get_height() {
+    return height;
+}
+
+double Spacer::get_width() {
+    return width;
+}
+
+double Spacer::get_height() {
     return height;
 }
