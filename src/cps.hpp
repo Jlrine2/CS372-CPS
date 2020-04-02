@@ -39,7 +39,7 @@ private:
 
 class Square : public Shape {
 public:
-    Square(double l) : sideLength(l) {}
+    explicit Square(double l) : sideLength(l) {}
 
     double get_width() override;
     double get_height() override;
@@ -70,7 +70,7 @@ private:
 
 class Triangle : public Shape {
 public:
-    Triangle(double l) : sideLength(l) {}
+    explicit Triangle(double l) : sideLength(l) {}
 
     double get_width() override;
     double get_height() override;
@@ -85,9 +85,7 @@ private:
 
 class Circle : public Shape {
 public:
-    Circle(double r) : radius(r) {}
-
-    ~Circle() {}
+    explicit Circle(double r) : radius(r) {}
 
     double get_width() override;
     double get_height() override;
@@ -131,7 +129,10 @@ private:
 
 class Scaled : public Shape {
 public:
-    Scaled(std::shared_ptr<Shape> shape, double fx, double fy) : shape(shape), x(fx), y(fy);
+    Scaled(std::shared_ptr<Shape> shape, double fx, double fy);
+
+    double get_width() override;
+    double get_height() override;
 
     void createPostScript(std::ostream &os) const override;
 private:
@@ -146,6 +147,9 @@ class Layered : public Shape {
 public:
     Layered(std::initializer_list<std::shared_ptr<Shape>> shapes);
 
+    double get_width() override;
+    double get_height() override;
+
     void createPostScript(std::ostream &os) const override;
 private:
     std::vector<std::shared_ptr<Shape>> shapes;
@@ -157,6 +161,9 @@ class Vertical : public Shape {
 public:
     Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
 
+    double get_width() override;
+    double get_height() override;
+
     void createPostScript(std::ostream &os) const override;
 private:
     std::vector<std::shared_ptr<Shape>> shapes;
@@ -166,7 +173,10 @@ private:
 
 class Horizontal : public Shape {
 public:
-    Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) : _shapes(shapes);
+    Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes);
+
+    double get_width() override;
+    double get_height() override;
 
     void createPostScript(std::ostream &os) const override;
 private:
