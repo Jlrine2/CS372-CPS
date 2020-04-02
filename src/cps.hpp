@@ -5,23 +5,15 @@
 #ifndef CS372_CPS_CPS_HPP
 #define CS372_CPS_CPS_HPP
 
-#include <string>
-using std::string;
-// --- Shape to Postscript file ---
-
-void shapeToPostScriptFile(const string & postScript, const string & filename);
-
-// --- Shape ---
+#include <ostream>
+#include <memory>
+#include <vector>
 
 class Shape {
 public:
     virtual double get_height() = 0;
     virtual double get_width() = 0;
-    // -----
-    virtual void set_width(double width);
-    virtual void set_height(double height);
-    // -----
-    virtual string createPostScript() const = 0;
+    virtual void createPostScript(std::ostream &os) const = 0;
 
 private:
     double _height;
@@ -37,14 +29,13 @@ public:
     double get_width() override;
     double get_height() override;
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 
 private:
     double sideLength;
     int sides;
 };
 
-// -- Square --
 
 class Square : public Shape {
 public:
@@ -53,7 +44,7 @@ public:
     double get_width() override;
     double get_height() override;
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 
 private:
     double sideLength;
@@ -68,7 +59,7 @@ public:
     double get_width() override;
     double get_height() override;
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 
 private:
     double height;
@@ -84,7 +75,7 @@ public:
     double get_width() override;
     double get_height() override;
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 
 private:
     double sideLength;
@@ -101,13 +92,12 @@ public:
     double get_width() override;
     double get_height() override;
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 private:
     double radius;
 
 };
 
-// --- Spacer --- INCOMPLETE
 
 class Spacer : public Shape {
 public:
@@ -116,68 +106,71 @@ public:
     double get_width() override;
     double get_height() override;
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 private:
     double height;
     double width;
 };
 
-// --- Rotated Shape --- INCOMPLETE
+// --- Rotated Shape ---
 
-class RotatedShape : public Shape {
+class Rotated : public Shape {
 public:
-    Rotated(Shape shape, int rotationAngle) : _shape(shape), _rotation(rotationAngle) {}
+    Rotated(std::shared_ptr<Shape> shape, int rotationAngle) : shape(shape), rotation(rotationAngle) {}
 
-    string createPostScript() const override;
+    double get_width() override;
+    double get_height() override;
+
+    void createPostScript(std::ostream &os) const override;
 private:
-    Shape _shape;
-    int _rotation;
+    std::shared_ptr<Shape> shape;
+    int rotation;
 };
 
-// --- Scaled Shape --- INCOMPLETE
+// --- Scaled Shape ---
 
-class ScaledShape : public Shape {
+class Scaled : public Shape {
 public:
-    Scaled(Shape shape, double fx, double fy) : _shape(shape), _x(fx), _y(fy);
+    Scaled(std::shared_ptr<Shape> shape, double fx, double fy) : shape(shape), x(fx), y(fy);
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 private:
-    Shape _shape;
-    double _x;
-    double _y;
+    std::shared_ptr<Shape> shape;
+    double x;
+    double y;
 };
 
 // --- Layered Shape --- INCOMPLETE
 
-class LayeredShape : public Shape {
+class Layered : public Shape {
 public:
-    Layered(Shape ... shapes) : _shapes(shapes);
+    Layered(std::initializer_list<std::shared_ptr<Shape>> shapes);
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 private:
-    Shape _shapes;
+    std::vector<std::shared_ptr<Shape>> shapes;
 };
 
 // --- Vertical Shape --- INCOMPLETE
 
-class VerticalShape : public Shape {
+class Vertical : public Shape {
 public:
-    Vertical(Shape ... shapes) : _shapes(shapes);
+    Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 private:
-    Shape _shapes;
+    std::vector<std::shared_ptr<Shape>> shapes;
 };
 
 // --- Horizontal Shape --- INCOMPLETE
 
-class HorizontalShape : public Shape {
+class Horizontal : public Shape {
 public:
-    Horizontal(Shape ... shapes) : _shapes(shapes);
+    Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) : _shapes(shapes);
 
-    string createPostScript() const override;
+    void createPostScript(std::ostream &os) const override;
 private:
-    Shape _shapes;
+    std::vector<std::shared_ptr<Shape>> _shapes;
 };
 
 #endif //CS372_CPS_CPS_HPP
