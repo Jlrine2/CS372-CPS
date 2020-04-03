@@ -4,7 +4,9 @@
 
 #include "cps.hpp"
 #include <cmath>
-
+#include <string>
+using std::string;
+using std::to_string;
 
 double Circle::get_height() {
     return 2.0 * radius;
@@ -15,7 +17,7 @@ double Circle::get_width() {
 }
 
 void Circle::createPostScript(std::ostream &os) const {
-
+    os << "gsave newpath 0 0 " << radius << " 0 360 arc closepath stroke grestore";
 }
 
 
@@ -57,7 +59,7 @@ double Polygon::get_height() {
 }
 
 void Polygon::createPostScript(std::ostream &os) const {
-
+    os << "gsave" << sideLength / -2 << " " << get_height() / -2 << " translate newpath 0 0 moveto 1 1 " << sides - 1 << " { " << sideLength << " 0 rlineto " << (sides-2)*180 << " rotate " << "} for closepath stroke grestore";
 }
 
 double Square::get_width() {
@@ -93,7 +95,7 @@ double Rectangle::get_height() {
 }
 
 void Rectangle::createPostScript(std::ostream &os) const {
-
+    os << "gsave newpath " << get_width()/2 << " " << get_height()/2 << " moveto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto 0 " << get_height << "rlineto closepath stroke grestore ";
 }
 
 double Spacer::get_width() {
@@ -118,7 +120,7 @@ double Rotated::get_height() {
 }
 
 void Rotated::createPostScript(std::ostream &os) const {
-
+    os << "gsave " << rotation << " rotate " << shape->createPostScript(stream) << "grestore ";
 }
 
 Scaled::Scaled(std::shared_ptr<Shape> shape, double fx, double fy) {
@@ -134,7 +136,7 @@ double Scaled::get_height() {
 }
 
 void Scaled::createPostScript(std::ostream &os) const {
-
+    os << "gsave " << x << " " << y << " scale " << shape->createPostScript(std::ostream &stream) << "grestore ";
 }
 
 double Layered::get_width() {
@@ -146,7 +148,7 @@ double Layered::get_height() {
 }
 
 void Layered::createPostScript(std::ostream &os) const {
-
+    //Need Help
 }
 
 Layered::Layered(std::initializer_list<std::shared_ptr<Shape>> shapes) {
@@ -166,7 +168,7 @@ double Vertical::get_height() {
 }
 
 void Vertical::createPostScript(std::ostream &os) const {
-
+    //Need Help
 }
 
 Horizontal::Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) {
@@ -182,5 +184,5 @@ double Horizontal::get_height() {
 }
 
 void Horizontal::createPostScript(std::ostream &os) const {
-
+    //Need Help
 }
