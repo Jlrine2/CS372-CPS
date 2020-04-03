@@ -65,8 +65,6 @@ double Polygon::get_height() const {
 
 void Polygon::createPostScript(std::ostream &os) const {
     int interiorAngle = 180 - (((sides - 2) * 180) / sides);
-    int originX = 306;
-    int originY = 396;
     os << gotoCenter() << "1 1 " << sides << " { "
     << sideLength << " 0 rlineto " << interiorAngle << " rotate } for stroke grestore ";
 }
@@ -106,8 +104,6 @@ double Rectangle::get_height() const {
 }
 
 void Rectangle::createPostScript(std::ostream &os) const {
-    int originX = 306;
-    int originY = 396;
     os << gotoCenter() << "0 " << get_height() << " rlineto " << get_width()
 
        << " 0 rlineto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto"
