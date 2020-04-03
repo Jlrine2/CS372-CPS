@@ -58,12 +58,11 @@ double Polygon::get_height() const {
 }
 
 void Polygon::createPostScript(std::ostream &os) const {
-    int interiorAngle = ((sides - 2) * 180) / sides;
+    int interiorAngle = 180 - (((sides - 2) * 180) / sides);
     int originX = 306;
     int originY = 396;
-    os << "gsave newpath " << originX << " " << originY << " moveto "
-    << "1 1 " << sides << " { "
-    << sideLength << " 0 rlineto " << interiorAngle << " rotate } for closepath stroke grestore ";
+    os << "1 1 " << sides << " { "
+    << sideLength << " 0 rlineto " << interiorAngle << " rotate } for stroke grestore ";
 }
 
 double Square::get_width() const {
@@ -103,9 +102,9 @@ double Rectangle::get_height() const {
 void Rectangle::createPostScript(std::ostream &os) const {
     int originX = 306;
     int originY = 396;
-    os << "gsave newpath " << originX << " " << originY << " moveto "
-    << "0 " << get_width() << " rlineto " << get_height() << " 0 rlineto 0 -" << get_width() << " rlineto"
-    << " closepath stroke grestore ";
+    os << "0 " << get_height() << " rlineto " << get_width()
+       << " 0 rlineto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto"
+       << " stroke ";
 }
 
 double Spacer::get_width() const {
@@ -116,9 +115,7 @@ double Spacer::get_height() const {
     return height;
 }
 
-void Spacer::createPostScript(std::ostream &os) const {
-    //Need Help
-}
+void Spacer::createPostScript(std::ostream &os) const {}
 
 
 double Rotated::get_width() const {

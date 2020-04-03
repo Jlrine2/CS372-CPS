@@ -5,7 +5,12 @@
 #import <iostream>
 
 int main() {
-    Circle c(60);
-    c.createPostScript(std::cout);
+    std::shared_ptr<Shape> sPtr = std::make_shared<Polygon>(60,7);
+    Rotated r(sPtr, 90);
+
+
+    std::cout << "newpath 306 396 moveto ";
+
+    sPtr->createPostScript(std::cout);
     return 0;
 }
