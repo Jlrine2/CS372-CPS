@@ -5,13 +5,16 @@
 #import <iostream>
 
 int main() {
-    std::shared_ptr<Shape> sPtr = std::make_shared<Polygon>(5,7);
-    Scaled r(sPtr, 2,4);
+    std::shared_ptr<Shape> sPtr = std::make_shared<Rectangle>(5,7);
+    std::shared_ptr<Shape> sPtr1 = std::make_shared<Rectangle>(5,7);
+    std::shared_ptr<Shape> sPtr2 = std::make_shared<Rectangle>(5,7);
+
+    Horizontal a {sPtr, sPtr1, sPtr2};
 
 
-    std::cout << "newpath 306 396 moveto ";
+    std::cout << "newpath ";
 
-    r.createPostScript(std::cout);
+    a.createPostScript(std::cout);
 
     return 0;
 }
