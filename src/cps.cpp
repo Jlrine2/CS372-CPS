@@ -233,6 +233,25 @@ void Horizontal::createPostScript(std::ostream &os) const {
     }
 }
 
+Star::Star(double sideLength): sideLength(sideLength) {
+}
+
+double Star::get_width() const {
+    return sideLength;
+}
+
+double Star::get_height() const {
+    return sideLength * std::sin(36);
+}
+
+void Star::createPostScript(std::ostream &os) const {
+    int interiorAngle = 180 - 36;
+    os << "gsave 1 1 5 " << " { "
+       << sideLength << " 0 rlineto " << interiorAngle << " rotate } for stroke grestore ";
+}
+
+
+
 std::shared_ptr<Shape> getCircle(double radius) {
     return std::make_shared<Circle>(radius);
 }
@@ -285,3 +304,10 @@ std::shared_ptr<Shape> getLayered(std::initializer_list<std::shared_ptr<Shape>> 
     return std::make_shared<Layered>
             (std::initializer_list<std::shared_ptr<Shape>>(shapes));
 }
+
+std::shared_ptr<Star> getStar(double sideLength) {
+    return std::make_shared<Star>(sideLength);
+}
+
+
+

@@ -194,6 +194,19 @@ private:
     std::vector<std::shared_ptr<Shape>> _shapes;
 };
 
+class Star : public Shape {
+public:
+    Star(double sidelength);
+
+    double get_width() const override;
+
+    double get_height() const override;
+
+    void createPostScript(std::ostream &os) const override;
+
+private:
+    double sideLength;
+};
 
 void getPostScriptPage(std::ostream & os, std::shared_ptr<Shape> shape);
 
@@ -209,4 +222,7 @@ std::shared_ptr<Shape> getRotated(std::shared_ptr<Shape> shape, int rotationAngl
 std::shared_ptr<Shape> getVertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
 std::shared_ptr<Shape> getHorizontal(std::initializer_list<std::shared_ptr<Shape>> shapes);
 std::shared_ptr<Shape> getLayered(std::initializer_list<std::shared_ptr<Shape>> shapes);
+
+
+std::shared_ptr<Star> getStar(double sideLength);
 #endif //CS372_CPS_CPS_HPP
