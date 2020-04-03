@@ -14,7 +14,7 @@ double Circle::get_width() {
 }
 
 void Circle::createPostScript(std::ostream &os) const {
-    os << "gsave newpath 0 0 " << radius << " 0 360 arc closepath stroke grestore";
+    os << "gsave newpath 0 0 " << radius << " 0 360 arc closepath stroke grestore ";
 }
 
 
@@ -56,7 +56,7 @@ double Polygon::get_height() {
 }
 
 void Polygon::createPostScript(std::ostream &os) const {
-    os << "gsave " << sideLength / -2 << " " << get_height() / -2 << " translate newpath 0 0 moveto 1 1 " << sides - 1 << " { " << sideLength << " 0 rlineto " << (sides-2)*180 << " rotate } for closepath stroke grestore";
+    os << "gsave " << sideLength / -2 << " " << get_height() / -2 << " translate newpath 0 0 moveto 1 1 " << sides - 1 << " { " << sideLength << " 0 rlineto " << (sides-2)*180 << " rotate } for closepath stroke grestore ";
 }
 
 double Square::get_width() {
@@ -133,7 +133,7 @@ double Scaled::get_height() {
 }
 
 void Scaled::createPostScript(std::ostream &os) const {
-    os << "gsave " << x << " " << y << " scale " << shape->createPostScript(std::ostream &stream) << "grestore ";
+    os << "gsave " << x << " " << y << " scale " << shape->createPostScript(stream) << "grestore ";
 }
 
 double Layered::get_width() {
