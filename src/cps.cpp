@@ -22,6 +22,7 @@ void Circle::createPostScript(std::ostream &os) const {
     int originX = 306;
     int originY = 396;
     os << gotoCenter() << "gsave newpath " << originX << " " << originY << " " << radius << " 0 360 arc closepath stroke grestore ";
+
 }
 
 
@@ -108,6 +109,7 @@ void Rectangle::createPostScript(std::ostream &os) const {
     int originX = 306;
     int originY = 396;
     os << gotoCenter() << "0 " << get_height() << " rlineto " << get_width()
+
        << " 0 rlineto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto"
        << " stroke ";
 }
@@ -153,7 +155,7 @@ double Scaled::get_height() const {
 void Scaled::createPostScript(std::ostream &os) const {
     os << "gsave " << x << " " << y << " scale ";
     shape->createPostScript(os);
-    os << "grestore ";
+//    os << "grestore ";
 }
 
 double Layered::get_width() const {
