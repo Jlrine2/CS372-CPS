@@ -12,9 +12,3 @@ add_executable(CS372_CPS
         tests/catch.hpp
         tests/cps_test_cases.cpp
         tests/cps_test_main.cpp)
-
-add_executable(MAIN
-        src/cps.cpp
-        src/cps.hpp
-        tests/catch.hpp
-        main.cpp)
