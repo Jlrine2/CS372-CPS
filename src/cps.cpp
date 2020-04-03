@@ -4,9 +4,6 @@
 
 #include "cps.hpp"
 #include <cmath>
-#include <string>
-using std::string;
-using std::to_string;
 
 double Circle::get_height() {
     return 2.0 * radius;
@@ -59,7 +56,7 @@ double Polygon::get_height() {
 }
 
 void Polygon::createPostScript(std::ostream &os) const {
-    os << "gsave" << sideLength / -2 << " " << get_height() / -2 << " translate newpath 0 0 moveto 1 1 " << sides - 1 << " { " << sideLength << " 0 rlineto " << (sides-2)*180 << " rotate " << "} for closepath stroke grestore";
+    os << "gsave " << sideLength / -2 << " " << get_height() / -2 << " translate newpath 0 0 moveto 1 1 " << sides - 1 << " { " << sideLength << " 0 rlineto " << (sides-2)*180 << " rotate } for closepath stroke grestore";
 }
 
 double Square::get_width() {
@@ -71,7 +68,7 @@ double Square::get_height() {
 }
 
 void Square::createPostScript(std::ostream &os) const {
-
+    //Need Help
 }
 
 double Triangle::get_height() {
@@ -95,7 +92,7 @@ double Rectangle::get_height() {
 }
 
 void Rectangle::createPostScript(std::ostream &os) const {
-    os << "gsave newpath " << get_width()/2 << " " << get_height()/2 << " moveto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto 0 " << get_height << "rlineto closepath stroke grestore ";
+    os << "gsave newpath " << get_width()/2 << " " << get_height()/2 << " moveto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto 0 " << get_height << " rlineto closepath stroke grestore ";
 }
 
 double Spacer::get_width() {
