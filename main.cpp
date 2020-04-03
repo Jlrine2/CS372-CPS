@@ -5,12 +5,13 @@
 #import <iostream>
 
 int main() {
-    std::shared_ptr<Shape> sPtr = std::make_shared<Polygon>(60,7);
-    Rotated r(sPtr, 90);
+    std::shared_ptr<Shape> sPtr = std::make_shared<Polygon>(5,7);
+    Scaled r(sPtr, 2,4);
 
 
     std::cout << "newpath 306 396 moveto ";
 
-    sPtr->createPostScript(std::cout);
+    r.createPostScript(std::cout);
+
     return 0;
 }

@@ -132,22 +132,23 @@ void Rotated::createPostScript(std::ostream &os) const {
     os << "grestore ";
 }
 
-Scaled::Scaled(std::shared_ptr<Shape> shape, double fx, double fy) {
-
+Scaled::Scaled(std::shared_ptr<Shape> shape, double fx, double fy): shape(shape) {
+    x = shape -> get_width() * 2;
+    y = shape -> get_height() * 2;
 }
 
 double Scaled::get_width() const {
-    return 0;
+    return shape ->get_width()*2;
 }
 
 double Scaled::get_height() const {
-    return 0;
+    return shape ->get_height()*2;
 }
 
 void Scaled::createPostScript(std::ostream &os) const {
     os << "gsave " << x << " " << y << " scale ";
     shape->createPostScript(os);
-    os << "grestore ";
+//    os << "grestore ";
 }
 
 double Layered::get_width() const {

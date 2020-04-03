@@ -19,9 +19,6 @@ public:
 
     virtual void createPostScript(std::ostream &os) const = 0;
 
-private:
-    double _height;
-    double _width;
 };
 
 
