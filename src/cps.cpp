@@ -68,7 +68,7 @@ double Square::get_height() {
 }
 
 void Square::createPostScript(std::ostream &os) const {
-    //Need Help
+    //Needs deletion
 }
 
 double Triangle::get_height() {
@@ -80,7 +80,7 @@ double Triangle::get_width() {
 }
 
 void Triangle::createPostScript(std::ostream &os) const {
-
+    //Needs deletion
 }
 
 double Rectangle::get_width() {
@@ -104,7 +104,7 @@ double Spacer::get_height() {
 }
 
 void Spacer::createPostScript(std::ostream &os) const {
-
+    //Need Help
 }
 
 
