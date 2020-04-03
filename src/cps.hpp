@@ -176,7 +176,7 @@ public:
     void createPostScript(std::ostream &os) const override;
 
 private:
-    std::vector<std::shared_ptr<Shape>> shapes;
+    std::vector<std::shared_ptr<Shape>> _shapes;
 };
 
 
