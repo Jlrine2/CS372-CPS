@@ -14,7 +14,9 @@ double Circle::get_width() const {
 }
 
 void Circle::createPostScript(std::ostream &os) const {
-    os << "gsave newpath 0 0 " << radius << " 0 360 arc closepath stroke grestore ";
+    int originX = 306;
+    int originY = 396;
+    os << "gsave newpath " << originX << " " << originY << " " << radius << " 0 360 arc closepath stroke grestore ";
 }
 
 

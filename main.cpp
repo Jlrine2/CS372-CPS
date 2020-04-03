@@ -5,7 +5,7 @@
 #import <iostream>
 
 int main() {
-    Rectangle p(60,40);
-    p.createPostScript(std::cout);
+    Circle c(60);
+    c.createPostScript(std::cout);
     return 0;
 }
