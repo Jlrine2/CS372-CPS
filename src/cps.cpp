@@ -4,7 +4,7 @@
 
 #include "cps.hpp"
 #include <cmath>
-
+#include <string>
 
 std::string gotoCenter() {
     return " 306 396 moveto ";
