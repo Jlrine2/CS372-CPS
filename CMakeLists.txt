@@ -16,4 +16,4 @@ add_executable(TEST
 add_executable(MAIN
         src/cps.cpp
         src/cps.hpp
-        main.cpp)
+        Example.cpp)
