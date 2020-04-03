@@ -4,6 +4,11 @@
 
 #include "cps.hpp"
 #include <cmath>
+#include <string>
+
+std::string gotoCenter() {
+    return " 306 396 moveto ";
+}
 
 double Circle::get_height() const {
     return 2.0 * radius;
@@ -14,7 +19,11 @@ double Circle::get_width() const {
 }
 
 void Circle::createPostScript(std::ostream &os) const {
-    os << "gsave newpath 0 0 " << radius << " 0 360 arc closepath stroke grestore ";
+    int originX = 306 + radius / 2;
+    int originY = 396 + radius / 2;
+    os << "gsave" << " newpath " << originX << " " << originY << " " << radius
+       << " 0 360 arc stroke grestore ";
+
 }
 
 
@@ -56,8 +65,9 @@ double Polygon::get_height() const {
 }
 
 void Polygon::createPostScript(std::ostream &os) const {
-    os << "gsave " << sideLength / -2 << " " << get_height() / -2 << " translate newpath 0 0 moveto 1 1 " << sides - 1
-       << " { " << sideLength << " 0 rlineto " << (sides - 2) * 180 << " rotate } for closepath stroke grestore ";
+    int interiorAngle = 180 - (((sides - 2) * 180) / sides);
+    os << "gsave 1 1 " << sides << " { "
+       << sideLength << " 0 rlineto " << interiorAngle << " rotate } for stroke grestore ";
 }
 
 double Square::get_width() const {
@@ -69,7 +79,8 @@ double Square::get_height() const {
 }
 
 void Square::createPostScript(std::ostream &os) const {
-    //Needs deletion
+    Polygon p(sideLength, 4);
+    p.createPostScript(os);
 }
 
 double Triangle::get_height() const {
@@ -81,7 +92,8 @@ double Triangle::get_width() const {
 }
 
 void Triangle::createPostScript(std::ostream &os) const {
-    //Needs deletion
+    Polygon p(sideLength, 3);
+    p.createPostScript(os);
 }
 
 double Rectangle::get_width() const {
@@ -93,9 +105,10 @@ double Rectangle::get_height() const {
 }
 
 void Rectangle::createPostScript(std::ostream &os) const {
-    os << "gsave newpath " << get_width() / 2 << " " << get_height() / 2
-       << " moveto 0 -" << get_height() << " rlineto -" << get_width()
-       << " 0 rlineto 0 " << get_height() << " rlineto closepath stroke grestore ";
+    os << "0 " << get_height() << " rlineto " << get_width()
+
+       << " 0 rlineto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto"
+       << " stroke ";
 }
 
 double Spacer::get_width() const {
@@ -106,9 +119,7 @@ double Spacer::get_height() const {
     return height;
 }
 
-void Spacer::createPostScript(std::ostream &os) const {
-    //Need Help
-}
+void Spacer::createPostScript(std::ostream &os) const {}
 
 
 double Rotated::get_width() const {
@@ -125,16 +136,17 @@ void Rotated::createPostScript(std::ostream &os) const {
     os << "grestore ";
 }
 
-Scaled::Scaled(std::shared_ptr<Shape> shape, double fx, double fy) {
-
+Scaled::Scaled(std::shared_ptr<Shape> shape, double fx, double fy) : shape(shape) {
+    x = shape->get_width() * 2;
+    y = shape->get_height() * 2;
 }
 
 double Scaled::get_width() const {
-    return 0;
+    return shape->get_width() * 2;
 }
 
 double Scaled::get_height() const {
-    return 0;
+    return shape->get_height() * 2;
 }
 
 void Scaled::createPostScript(std::ostream &os) const {
@@ -152,10 +164,12 @@ double Layered::get_height() const {
 }
 
 void Layered::createPostScript(std::ostream &os) const {
-    //Need Help
+    for (auto s : shapes) {
+        s->createPostScript(os);
+    }
 }
 
-Layered::Layered(std::initializer_list<std::shared_ptr<Shape>> shapes) {
+Layered::Layered(std::initializer_list<std::shared_ptr<Shape>> shapes) : shapes(shapes) {
 
 }
 
@@ -165,8 +179,8 @@ Vertical::Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes) {
 
 double Vertical::get_width() const {
     double largest = 0.0;
-    for(auto s : _shapes){
-        if(largest < s->get_width())
+    for (auto s : _shapes) {
+        if (largest < s->get_width())
             largest = s->get_width();
 
     }
@@ -175,14 +189,18 @@ double Vertical::get_width() const {
 
 double Vertical::get_height() const {
     double height = 0.0;
-    for(auto s : _shapes){
-        height+=s->get_height();
+    for (auto s : _shapes) {
+        height += s->get_height();
     }
     return height;
 }
 
 void Vertical::createPostScript(std::ostream &os) const {
-    //Need Help
+    for (int i = 1; i <= _shapes.size(); ++i) {
+        os << "gsave 0 " << _shapes[i - 1]->get_height() * i << " translate " << gotoCenter() << " ";
+        _shapes[i - 1]->createPostScript(os);
+        os << " grestore ";
+    }
 }
 
 Horizontal::Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) {
@@ -191,16 +209,16 @@ Horizontal::Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) {
 
 double Horizontal::get_width() const {
     double width = 0.0;
-    for(auto s : _shapes){
-        width+=s->get_width();
+    for (auto s : _shapes) {
+        width += s->get_width();
     }
     return width;
 }
 
 double Horizontal::get_height() const {
     double largest = 0.0;
-    for(auto s : _shapes){
-        if(largest < s->get_height())
+    for (auto s : _shapes) {
+        if (largest < s->get_height())
             largest = s->get_height();
 
     }
@@ -208,5 +226,88 @@ double Horizontal::get_height() const {
 }
 
 void Horizontal::createPostScript(std::ostream &os) const {
-    //Need Help
+    for (int i = 1; i <= _shapes.size(); ++i) {
+        os << "gsave " << _shapes[i - 1]->get_width() * i << " 0 translate " << gotoCenter() << " ";
+        _shapes[i - 1]->createPostScript(os);
+        os << " grestore ";
+    }
 }
+
+Star::Star(double sideLength): sideLength(sideLength) {
+}
+
+double Star::get_width() const {
+    return sideLength;
+}
+
+double Star::get_height() const {
+    return sideLength * std::sin(36);
+}
+
+void Star::createPostScript(std::ostream &os) const {
+    int interiorAngle = 180 - 36;
+    os << "gsave 1 1 5 " << " { "
+       << sideLength << " 0 rlineto " << interiorAngle << " rotate } for stroke grestore ";
+}
+
+
+
+std::shared_ptr<Shape> getCircle(double radius) {
+    return std::make_shared<Circle>(radius);
+}
+
+std::shared_ptr<Shape> getSquare(double sideLength) {
+    return std::make_shared<Square>(sideLength);
+
+}
+
+std::shared_ptr<Shape> getRectangle(double width, double height) {
+    return std::make_shared<Rectangle>(width, height);
+
+}
+
+std::shared_ptr<Shape> getTriangle(double sidelength) {
+    return std::make_shared<Triangle>(sidelength);
+
+}
+
+std::shared_ptr<Shape> getSpacer(double width, double height) {
+    return std::make_shared<Spacer>(width, height);
+
+}
+
+std::shared_ptr<Shape> getPolygon(double sideLength, double numberOfSides) {
+    return std::make_shared<Polygon>(numberOfSides, sideLength);
+}
+
+void getPostScriptPage(std::ostream &os, std::shared_ptr<Shape> shape) {
+    os << "newpath " << gotoCenter() << " ";
+    shape->createPostScript(os);
+    os << "showpage";
+}
+
+std::shared_ptr<Shape> getRotated(std::shared_ptr<Shape> shape, int rotationAngle) {
+    return std::make_shared<Rotated>(shape, rotationAngle);
+}
+
+std::shared_ptr<Shape> getVertical(std::initializer_list<std::shared_ptr<Shape>> shapes) {
+    return std::make_shared<Vertical>
+            (std::initializer_list<std::shared_ptr<Shape>>(shapes));
+}
+
+std::shared_ptr<Shape> getHorizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) {
+    return std::make_shared<Horizontal>
+            (std::initializer_list<std::shared_ptr<Shape>>(shapes));
+}
+
+std::shared_ptr<Shape> getLayered(std::initializer_list<std::shared_ptr<Shape>> shapes) {
+    return std::make_shared<Layered>
+            (std::initializer_list<std::shared_ptr<Shape>>(shapes));
+}
+
+std::shared_ptr<Star> getStar(double sideLength) {
+    return std::make_shared<Star>(sideLength);
+}
+
+
+
