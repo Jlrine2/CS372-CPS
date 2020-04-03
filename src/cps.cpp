@@ -160,15 +160,25 @@ Layered::Layered(std::initializer_list<std::shared_ptr<Shape>> shapes) {
 }
 
 Vertical::Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes) {
-
+    _shapes = shapes;
 }
 
 double Vertical::get_width() const {
-    return 0;
+    double largest = 0.0;
+    for(auto s : _shapes){
+        if(largest < s->get_width())
+            largest = s->get_width();
+
+    }
+    return largest;
 }
 
 double Vertical::get_height() const {
-    return 0;
+    double height = 0.0;
+    for(auto s : _shapes){
+        height+=s->get_height();
+    }
+    return height;
 }
 
 void Vertical::createPostScript(std::ostream &os) const {
@@ -176,15 +186,25 @@ void Vertical::createPostScript(std::ostream &os) const {
 }
 
 Horizontal::Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) {
-
+    _shapes = shapes;
 }
 
 double Horizontal::get_width() const {
-    return 0;
+    double width = 0.0;
+    for(auto s : _shapes){
+        width+=s->get_width();
+    }
+    return width;
 }
 
 double Horizontal::get_height() const {
-    return 0;
+    double largest = 0.0;
+    for(auto s : _shapes){
+        if(largest < s->get_height())
+            largest = s->get_height();
+
+    }
+    return largest;
 }
 
 void Horizontal::createPostScript(std::ostream &os) const {

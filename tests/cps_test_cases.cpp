@@ -72,3 +72,81 @@ TEST_CASE("Rectangle dimension calculations") {
     REQUIRE(r2 -> get_width() == Approx(2.0));
     REQUIRE(r2 -> get_height() == Approx(2.0));
 }
+TEST_CASE("Empty Vertical Container Height"){
+    std::shared_ptr<Shape> v1 = std::make_shared<Vertical>(Vertical({}));
+
+
+    REQUIRE(v1 -> get_width() == Approx(0.0));
+    REQUIRE(v1 -> get_height() == Approx(0.0));
+
+}
+TEST_CASE("Vertical Container Height"){
+     std::shared_ptr<Shape> r1 = std::make_shared<Rectangle>(1.0, 2.0);
+
+    REQUIRE(r1 -> get_width() == Approx(1.0));
+    REQUIRE(r1 -> get_height() == Approx(2.0));
+
+    std::shared_ptr<Shape> v1 = std::make_shared<Vertical>(Vertical({r1}));
+
+
+    REQUIRE(v1 -> get_width() == Approx(1.0));
+    REQUIRE(v1 -> get_height() == Approx(2.0));
+
+}
+TEST_CASE("Vertical Container Height 2 Elements"){
+    std::shared_ptr<Shape> r1 = std::make_shared<Rectangle>(1.0, 2.0);
+
+    REQUIRE(r1 -> get_width() == Approx(1.0));
+    REQUIRE(r1 -> get_height() == Approx(2.0));
+
+    std::shared_ptr<Shape> r2 = std::make_shared<Rectangle>(1.0, 2.0);
+
+    REQUIRE(r2 -> get_width() == Approx(1.0));
+    REQUIRE(r2 -> get_height() == Approx(2.0));
+
+    std::shared_ptr<Shape> v1 = std::make_shared<Vertical>(Vertical({r1,r2}));
+
+
+    REQUIRE(v1 -> get_width() == Approx(1.0));
+    REQUIRE(v1 -> get_height() == Approx(4.0));
+
+}
+TEST_CASE("Empty Horizontal Container Height"){
+    std::shared_ptr<Shape> h1 = std::make_shared<Horizontal>(Horizontal({}));
+
+
+    REQUIRE(h1 -> get_width() == Approx(0.0));
+    REQUIRE(h1 -> get_height() == Approx(0.0));
+
+}
+TEST_CASE("Horizontal Container Height"){
+     std::shared_ptr<Shape> r1 = std::make_shared<Rectangle>(1.0, 2.0);
+
+    REQUIRE(r1 -> get_width() == Approx(1.0));
+    REQUIRE(r1 -> get_height() == Approx(2.0));
+
+    std::shared_ptr<Shape> h1 = std::make_shared<Horizontal>(Horizontal({r1}));
+
+
+    REQUIRE(h1 -> get_width() == Approx(1.0));
+    REQUIRE(h1 -> get_height() == Approx(2.0));
+
+}
+TEST_CASE("Horizontal Container Height 2 Elements"){
+    std::shared_ptr<Shape> r1 = std::make_shared<Rectangle>(1.0, 2.0);
+
+    REQUIRE(r1 -> get_width() == Approx(1.0));
+    REQUIRE(r1 -> get_height() == Approx(2.0));
+
+    std::shared_ptr<Shape> r2 = std::make_shared<Rectangle>(1.0, 2.0);
+
+    REQUIRE(r2 -> get_width() == Approx(1.0));
+    REQUIRE(r2 -> get_height() == Approx(2.0));
+
+    std::shared_ptr<Shape> h1 = std::make_shared<Horizontal>(Horizontal({r1,r2}));
+
+
+    REQUIRE(h1 -> get_width() == Approx(2.0));
+    REQUIRE(h1 -> get_height() == Approx(2.0));
+
+}
