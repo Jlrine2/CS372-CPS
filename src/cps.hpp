@@ -11,6 +11,7 @@
 
 
 
+
 class Shape {
 public:
     [[nodiscard]] virtual double get_height() const = 0;
@@ -193,4 +194,19 @@ private:
     std::vector<std::shared_ptr<Shape>> _shapes;
 };
 
+
+void getPostScriptPage(std::ostream & os, std::shared_ptr<Shape> shape);
+
+std::shared_ptr<Shape> getCircle(double radius);
+std::shared_ptr<Shape> getSquare(double sideLength);
+std::shared_ptr<Shape> getRectangle(double width, double height);
+std::shared_ptr<Shape> getTriangle(double sidelength);
+std::shared_ptr<Shape> getSpacer(double width, double height);
+std::shared_ptr<Shape> getPolygon(double sideLength, double numberOfSides);
+
+
+std::shared_ptr<Shape> getRotated(std::shared_ptr<Shape> shape, int rotationAngle);
+std::shared_ptr<Shape> getVertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
+std::shared_ptr<Shape> getHorizontal(std::initializer_list<std::shared_ptr<Shape>> shapes);
+std::shared_ptr<Shape> getLayered(std::initializer_list<std::shared_ptr<Shape>> shapes);
 #endif //CS372_CPS_CPS_HPP
