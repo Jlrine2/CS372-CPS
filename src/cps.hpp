@@ -11,9 +11,9 @@
 
 class Shape {
 public:
-    virtual double get_height() = 0;
+    [[nodiscard]] virtual double get_height() const = 0;
 
-    virtual double get_width() = 0;
+    virtual double get_width() const = 0;
 
     virtual void createPostScript(std::ostream &os) const = 0;
 

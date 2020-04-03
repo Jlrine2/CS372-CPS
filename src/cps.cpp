@@ -92,7 +92,7 @@ double Rectangle::get_height() const {
 }
 
 void Rectangle::createPostScript(std::ostream &os) const {
-    os << "gsave newpath " << get_width()/2 << " " << get_height()/2 << " moveto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto 0 " << get_height << " rlineto closepath stroke grestore ";
+    os << "gsave newpath " << get_width()/2 << " " << get_height()/2 << " moveto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto 0 " << get_height() << " rlineto closepath stroke grestore ";
 }
 
 double Spacer::get_width() const {
@@ -117,7 +117,9 @@ double Rotated::get_height() const {
 }
 
 void Rotated::createPostScript(std::ostream &os) const {
-    os << "gsave " << rotation << " rotate " << shape->createPostScript(stream) << "grestore ";
+    os << "gsave " << rotation << " rotate ";
+    shape->createPostScript(os);
+    os << "grestore ";
 }
 
 Scaled::Scaled(std::shared_ptr<Shape> shape, double fx, double fy) {
@@ -133,7 +135,9 @@ double Scaled::get_height() const {
 }
 
 void Scaled::createPostScript(std::ostream &os) const {
-    os << "gsave " << x << " " << y << " scale " << shape->createPostScript(stream) << "grestore ";
+    os << "gsave " << x << " " << y << " scale ";
+    shape->createPostScript(os);
+    os << "grestore ";
 }
 
 double Layered::get_width() const {
