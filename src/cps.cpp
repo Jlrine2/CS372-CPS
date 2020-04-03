@@ -5,11 +5,11 @@
 #include "cps.hpp"
 #include <cmath>
 
-double Circle::get_height() {
+double Circle::get_height() const {
     return 2.0 * radius;
 }
 
-double Circle::get_width() {
+double Circle::get_width() const {
     return 2.0 * radius;
 }
 
@@ -28,7 +28,7 @@ void Circle::createPostScript(std::ostream &os) const {
  *     if n is divisible by 2 but not 4
  * Where n is the number of sides and l is the length of each side
  */
-double Polygon::get_width() {
+double Polygon::get_width() const {
     double pi = 3.14159265358979323846;
     if (sides % 4 == 0) {
         return (sideLength * std::cos(pi / sides)) / (std::sin(pi / sides));
@@ -47,7 +47,7 @@ double Polygon::get_width() {
  *     if n is divisible by 2
  * Where n is the number of sides and l is the length of each side
  */
-double Polygon::get_height() {
+double Polygon::get_height() const {
     double pi = 3.14159265358979323846;
     if (sides % 2 == 0) {
         return (sideLength * std::cos(pi / sides)) / (std::sin(pi / sides));
@@ -59,11 +59,11 @@ void Polygon::createPostScript(std::ostream &os) const {
     os << "gsave " << sideLength / -2 << " " << get_height() / -2 << " translate newpath 0 0 moveto 1 1 " << sides - 1 << " { " << sideLength << " 0 rlineto " << (sides-2)*180 << " rotate } for closepath stroke grestore ";
 }
 
-double Square::get_width() {
+double Square::get_width() const {
     return sideLength;
 }
 
-double Square::get_height() {
+double Square::get_height() const {
     return sideLength;
 }
 
@@ -71,11 +71,11 @@ void Square::createPostScript(std::ostream &os) const {
     //Needs deletion
 }
 
-double Triangle::get_height() {
+double Triangle::get_height() const {
     return sqrt(std::pow(sideLength, 2) - std::pow(sideLength / 2, 2));
 }
 
-double Triangle::get_width() {
+double Triangle::get_width() const {
     return sideLength;
 }
 
@@ -83,11 +83,11 @@ void Triangle::createPostScript(std::ostream &os) const {
     //Needs deletion
 }
 
-double Rectangle::get_width() {
+double Rectangle::get_width() const {
     return width;
 }
 
-double Rectangle::get_height() {
+double Rectangle::get_height() const {
     return height;
 }
 
@@ -95,11 +95,11 @@ void Rectangle::createPostScript(std::ostream &os) const {
     os << "gsave newpath " << get_width()/2 << " " << get_height()/2 << " moveto 0 -" << get_height() << " rlineto -" << get_width() << " 0 rlineto 0 " << get_height << " rlineto closepath stroke grestore ";
 }
 
-double Spacer::get_width() {
+double Spacer::get_width() const {
     return width;
 }
 
-double Spacer::get_height() {
+double Spacer::get_height() const {
     return height;
 }
 
@@ -108,11 +108,11 @@ void Spacer::createPostScript(std::ostream &os) const {
 }
 
 
-double Rotated::get_width() {
+double Rotated::get_width() const {
     return 0;
 }
 
-double Rotated::get_height() {
+double Rotated::get_height() const {
     return 0;
 }
 
@@ -124,11 +124,11 @@ Scaled::Scaled(std::shared_ptr<Shape> shape, double fx, double fy) {
 
 }
 
-double Scaled::get_width() {
+double Scaled::get_width() const {
     return 0;
 }
 
-double Scaled::get_height() {
+double Scaled::get_height() const {
     return 0;
 }
 
@@ -136,11 +136,11 @@ void Scaled::createPostScript(std::ostream &os) const {
     os << "gsave " << x << " " << y << " scale " << shape->createPostScript(stream) << "grestore ";
 }
 
-double Layered::get_width() {
+double Layered::get_width() const {
     return 0;
 }
 
-double Layered::get_height() {
+double Layered::get_height() const {
     return 0;
 }
 
@@ -156,11 +156,11 @@ Vertical::Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes) {
 
 }
 
-double Vertical::get_width() {
+double Vertical::get_width() const {
     return 0;
 }
 
-double Vertical::get_height() {
+double Vertical::get_height() const {
     return 0;
 }
 
@@ -172,11 +172,11 @@ Horizontal::Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes) {
 
 }
 
-double Horizontal::get_width() {
+double Horizontal::get_width() const {
     return 0;
 }
 
-double Horizontal::get_height() {
+double Horizontal::get_height() const {
     return 0;
 }
 

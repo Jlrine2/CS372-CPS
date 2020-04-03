@@ -27,9 +27,9 @@ class Polygon : public Shape {
 public:
     Polygon(double sLen, unsigned int sides) : sideLength(sLen), sides(sides) {}
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -43,9 +43,9 @@ class Square : public Shape {
 public:
     explicit Square(double l) : sideLength(l) {}
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -58,9 +58,9 @@ class Rectangle : public Shape {
 public:
     Rectangle(double w, double h) : width(w), height(h) {}
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -74,9 +74,9 @@ class Triangle : public Shape {
 public:
     explicit Triangle(double l) : sideLength(l) {}
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -89,9 +89,9 @@ class Circle : public Shape {
 public:
     explicit Circle(double r) : radius(r) {}
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -105,9 +105,9 @@ class Spacer : public Shape {
 public:
     Spacer(double w, double h) : width(w), height(h) {}
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -121,9 +121,9 @@ class Rotated : public Shape {
 public:
     Rotated(std::shared_ptr<Shape> shape, int rotationAngle) : shape(shape), rotation(rotationAngle) {}
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -137,9 +137,9 @@ class Scaled : public Shape {
 public:
     Scaled(std::shared_ptr<Shape> shape, double fx, double fy);
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -154,9 +154,9 @@ class Layered : public Shape {
 public:
     Layered(std::initializer_list<std::shared_ptr<Shape>> shapes);
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -169,9 +169,9 @@ class Vertical : public Shape {
 public:
     Vertical(std::initializer_list<std::shared_ptr<Shape>> shapes);
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
@@ -184,9 +184,9 @@ class Horizontal : public Shape {
 public:
     Horizontal(std::initializer_list<std::shared_ptr<Shape>> shapes);
 
-    double get_width() override;
+    double get_width() const override;
 
-    double get_height() override;
+    double get_height() const override;
 
     void createPostScript(std::ostream &os) const override;
 
